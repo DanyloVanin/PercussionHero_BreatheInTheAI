@@ -36,7 +36,7 @@ volodymyr.barannik@ukma.edu.ua}
 \maketitle
 
 \begin{abstract}
-Cystic fibrosis (CF) is an inherited disorder that causes severe damage to the lungs. An important part of the treatment of cystic fibrosis is chest physical therapy, which usually consists of chest percussion, vibration and postural drainage. To minimise the impact on the patient, chest percussion must be done using only cupped hands, as flat-hand hits can be dangerous for the patient. While a previous paper presented Percussion Hero, a cooperative, rhythm-based game designed to improve chest physical therapy adherence, this paper enhances the game by creating a hit classification module. This module distinguishes flat-hand and cupped-hand hits using a small convolutional neural network (CNN) and spectrogram of hit audio as model input. This module can potentially provide the caregiver with feedback and improve the overall quality of the percussion exercise.
+Cystic fibrosis (CF) is an inherited disorder that causes severe damage to the lungs. An important part of the treatment of cystic fibrosis is chest physical therapy, which usually consists of chest percussion, vibration and postural drainage. To minimise the impact on the patient, chest percussion must be done using only cupped hands, as flat-hand hits can be dangerous for the patient. While a previous paper presented Percussion Hero, a cooperative, rhythm-based game designed to improve chest physical therapy adherence [1], this paper enhances the game by creating a hit classification module. This module distinguishes flat-hand and cupped-hand hits using a small convolutional neural network (CNN) and spectrogram of hit audio as model input. This module can potentially provide the caregiver with feedback and improve the overall quality of the percussion exercise.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -44,20 +44,21 @@ cystic fibrosis, chest physical therapy, caregivers, audio classification, CNN, 
 \end{IEEEkeywords}
 
 \section{Introduction}
-This document is a model and instructions for \LaTeX.
-Please observe the conference page limits. 
+<TODO>
 
 \section{Dataset}
 
-\subsection{Maintaining the Integrity of the Specifications}
+\subsection{Experimental data format}
+Percussion Hero [1] uses stethoscope-based controller for game input. Controller simply consists of a standard stethoscope,with its hollow rubber tubes cut and a condenser mic inserted. It is similar to input system used in "Scratch Input" system by Harrison et al. [2]. During gameplay, the patient wears a stethoscope on the back or chest that processes and detects sounds from chest cavity. Same controller was used for existing Percussion Hero game, specifically for detecting heartbeat and distinguishing wet vs. dry coughs. With proper guidance, this type of controller can be crafted at home using relatively cheap components, which makes it more available to variety of patients and caregivers. As this controller showed good results for similar tasks, it was chosen to gather input audio for hit classification task as well. 
 
-The IEEEtran class file is used to format your paper and style the text. All margins, 
-column widths, line spaces, and text fonts are prescribed; please do not 
-alter them. You may note peculiarities. For example, the head margin
-measures proportionately more than is customary. This measurement 
-and others are deliberate, using specifications that anticipate your paper 
-as one part of the entire proceedings, and not as an independent document. 
-Please do not revise any of the current designations.
+\subsection{Gathering input audio}
+For the purposes of research several 3-5 minute sessions were recorded using stethoscope-based input controller. Recorded audio consisted of only flat-hand hits and only cupped-hand hist recorded at interior and posterior sides of chest. Sounds were recorded several times, using normal and high-frequency side of stethoscope. 
+
+\subsection{Data processing}
+
+Gathered audio files were later transformed to adhere to similar audio parameters. Stereo sound was split into different mono channels, down-sampled from 44.1kHz to 15kHz. Frequency change was motivated by the fact that useful hit sound information is mostly located in lower parts of frequency range and removing unimportant parts of data can simplify computation. All files were converted to .wav format for the purposes of unification and further exploitation of Tensorflow audio library capabilities that easily integrate with .wav audio format.
+
+\subsection{Data augmentation}
 
 \section{Prepare Your Paper Before Styling}
 Before you begin to format your paper, first write and save the content as a 
@@ -251,15 +252,12 @@ citation first, followed by the original foreign-language citation \cite{b6}.
 
 \begin{thebibliography}{00}
 \bibitem{b1} Book Sadprasid, Ethan Eddy, Aaron Tabor, Erik Scheme, and Scott Bateman. 2021. Percussion Hero: A Chest Physical Therapy Game for People with Cystic Fibrosis and their Caregivers. In Extended Abstracts of the 2021 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY '21). Association for Computing Machinery, New York, NY, USA, 361–367.  
-\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+\bibitem{b2} Chris Harrison and Scott E. Hudson. 2008. Scratch input: creating large, inexpensive, unpowered and mobile finger input surfaces. In Proceedings of the 21st annual ACM symposium on User interface software and technology (UIST ’08), 205–208. https://doi.org/10.1145/1449715.1449747
 \bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
 \bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
 \bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
 \bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
 \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
 \end{thebibliography}
-\vspace{12pt}
-\color{red}
-IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
 
 \end{document}
