@@ -14,12 +14,7 @@
 \title{Percussion Hero: A Chest Physical Therapy Game for People with Cystic Fibrosis and their Caregivers\\
 }
 
-\author{\IEEEauthorblockN{Book Sadprasid}
-\IEEEauthorblockA{\textit{Faculty of Computer Science} \\
-\textit{Uiversitty of Toronto}\\
-Toronto, Canada \\
-book.sadprasid@mail.utoronto.ca}
-\and
+\author{
 \IEEEauthorblockN{Danylo Vanin}
 \IEEEauthorblockA{\textit{Faculty of Informatics} \\
 \textit{Kyiv-Mohyla Academy}\\
@@ -31,6 +26,12 @@ danylo.vanin@ukma.edu.ua}
 \textit{Kyiv-Mohyla Academy}\\
 Kyiv, Ukraine \\
 volodymyr.barannik@ukma.edu.ua}
+\and
+\IEEEauthorblockN{Book Sadprasid}
+\IEEEauthorblockA{\textit{Faculty of Computer Science} \\
+\textit{Uiversitty of Toronto}\\
+Toronto, Canada \\
+book.sadprasid@mail.utoronto.ca}
 }
 
 \maketitle
@@ -44,7 +45,10 @@ cystic fibrosis, chest physical therapy, caregivers, audio classification, CNN, 
 \end{IEEEkeywords}
 
 \section{Introduction}
-<TODO>
+
+Cystic fibrosis (CF) is a rare genetic disorder that affects the lungs, pancreas, and other organs. Treatment plan for it often contains chest physical therapy (CPT) with exercises like percussion, vibration, and postural drainage. Despite this treatment being quite effective, since caregiver active participation is required and exercises are performed at-home, adherence and quality of exercises usually suffer. To address this, previous paper introduced Percussion Hero, a rhythm-based CPT game designed to engage both patients and their caregivers. It uses stethoscope-based input to identify percussions, vibrations and coughing that occur during gameplay. While Percussion Hero incorporated three main exercises, it left some room for future improvement in the area of game input processing. 
+
+In this paper, we develop a classification module that can be used in Percussion Hero for providing feedback to the caregiver during percussion exercise. This exercise requires caregiver to apply a series of light hits on a patient. To minimize the impact on the patient, such chest percussion must be done using only cupped hands, as flat hands hits can be dangerous for the patient. Our developed module uses convolutional neural networks to reliable identify a series of hits as flat or cupped. It can be used to enhance Percussion Hero game and improve overall quality of percussion exercise in CPT by providing caregiver a valuable feedback about their performance. 
 
 \section{Dataset}
 
@@ -56,11 +60,38 @@ For the purposes of research several 3-5 minute sessions were recorded using ste
 
 \subsection{Data processing}
 
-Gathered audio files were later transformed to adhere to similar audio parameters. Stereo sound was split into different mono channels, down-sampled from 44.1kHz to 15kHz. Frequency change was motivated by the fact that useful hit sound information is mostly located in lower parts of frequency range and removing unimportant parts of data can simplify computation. All files were converted to .wav format for the purposes of unification and further exploitation of Tensorflow audio library capabilities that easily integrate with .wav audio format.
+Gathered audio files were later transformed to adhere to similar audio parameters. Stereo sound was split into different mono channels, down-sampled from 44.1kHz to 16kHz. Frequency change was motivated by the fact that useful hit sound information is mostly located in lower parts of frequency range and removing redundant data can simplify the computations and the model eventually. All files were converted to .wav format for the purposes of unification and further exploitation of Tensorflow audio library capabilities that easily integrate with .wav audio format.
 
 \subsection{Data augmentation}
+<TODO>: shifting -> more data, resilient CNN. noise -> resilient CNN, better convergence and easier for the model to detect what's really important.
 
-\section{Prepare Your Paper Before Styling}
+\section{Related work}
+<TODO> @d.vanin
+
+\section{Method}
+
+Our method relies on using spectrograms instead of the raw waveforms and convolutional neural network (CNN) to process them.
+
+\subsection{Spectrogram}
+
+As was shown in related work, spectrograms produce robust results for classification tasks in the audio domain. The intuition behind this is that spectrograms, as a product of specific, predefined computations, provide us with time-frequency data so the model does not need to invent its own way of interpreting waveform in a time-frequency domain. 
+
+We have compared regular spectrogram and mel-spectrogram and found that regular spectrogram performs better for our task.
+<TODO: experiments>
+
+\subsection{Model}
+
+\subsection{Metrics}
+
+\section{Results and experiments}
+
+\subsection{Training}
+
+\subsection{Other architectures}
+
+
+
+\section{Discussion}
 Before you begin to format your paper, first write and save the content as a 
 separate text file. Complete all content and organizational editing before 
 formatting. Please note sections \ref{AA}--\ref{SCM} below for more information on 
